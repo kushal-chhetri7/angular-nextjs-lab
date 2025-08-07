@@ -1,0 +1,25 @@
+<div class="add-item-container">
+  <h2>Add New Item</h2>
+
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name">
+      <div *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched">
+        <span *ngIf="itemForm.get('name')?.errors?.['required']">Name is required</span>
+        <span *ngIf="itemForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" rows="4"></textarea>
+      <div *ngIf="itemForm.get('description')?.invalid && itemForm.get('description')?.touched">
+        <span *ngIf="itemForm.get('description')?.errors?.['required']">Description is required</span>
+        <span *ngIf="itemForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="itemForm.invalid">Add Item</button>
+  </form>
+</div>

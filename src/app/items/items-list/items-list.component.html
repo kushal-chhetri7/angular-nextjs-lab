@@ -1,0 +1,31 @@
+<div class="items-container">
+  <div class="items-header">
+    <h2>Items List</h2>
+    <a routerLink="/add-item" class="add-button">Add New Item</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading items...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button (click)="fetchItems()">Try Again</button>
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div *ngIf="items.length === 0" class="empty-state">
+      <p>No items found. Start by adding a new item.</p>
+      <a routerLink="/add-item" class="btn">Add First Item</a>
+    </div>
+
+    <div *ngIf="items.length > 0" class="items-grid">
+      <div *ngFor="let item of items" class="item-card">
+        <h3>{{ item.name }}</h3>
+        <p class="description">{{ item.description }}</p>
+        <p class="date" *ngIf="item.createdAt">Added: {{ formatDate(item.createdAt) }}</p>
+      </div>
+    </div>
+  </div>
+</div>
